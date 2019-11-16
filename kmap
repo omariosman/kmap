@@ -1,0 +1,110 @@
+/* Author: Omar Osman */
+/*Not completed yet*/
+
+#include <stdio.h>
+#include<string.h>
+#include<iostream>
+using namespace std;
+
+//The class is container for the object that consits of a number iin its two forms both decimal and binary
+class Combined
+{
+public:
+int binary[3];
+int dec;
+};
+
+
+//A function used to convert the decimal numbers into binary numbers and store them in the array inside the object
+void converter(int decNum, int binary[], int size){
+    memset(binary, 0, 3);
+    for (int i = size - 1; decNum > 0; i--){
+    binary[i] = decNum % 2;
+    decNum /= 2;    
+    }
+}
+
+
+int main()
+{
+    //User is asked to enter the size of the minterms in the kmap
+    int size, minterm;
+    cout << "Enter the size of the minterms: ";
+    cin >> size;
+
+    //Crreating array of objects its size equal to the size of minterms
+    Combined *myArray = new Combined[size];
+
+    for (int i = 0; i < size; i++){
+        cout << "Enter minterm " << i + 1 << " :";
+        cin >> minterm;
+        myArray[i].dec = minterm;
+        converter(myArray[i].dec, myArray[i].binary, 3);
+}
+
+int counter, index, first, second;
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            counter = 0;
+            for (int k = 0; k < 3; k++){
+                if (myArray[i].binary[k] != myArray[j].binary[k]){
+                    counter++;
+                    index  = k;
+                    first  = i;
+                    second = j;
+                }
+            }
+            if (counter == 1){
+                if (index == 0) {
+                    if (myArray[first].binary[1] == myArray[second].binary[1] == 0) {
+                        cout << "~B";
+                    } else if (myArray[first].binary[1] == myArray[second].binary[1] == 1){
+                        cout << "B";
+                    }
+                    if (myArray[first].binary[2] == myArray[second].binary[2] == 0) {
+                        cout << "~C";
+                    } else if (myArray[first].binary[2] == myArray[second].binary[2] == 1){
+                        cout << "C";
+                    }
+                  
+                } else if (index = 1){
+                    if (myArray[first].binary[0] == myArray[second].binary[0] == 0) {
+                        cout << "~A";
+                    } else if (myArray[first].binary[0] == myArray[second].binary[0] == 1){
+                        cout << "A";
+                    }
+                    if (myArray[first].binary[2] == myArray[second].binary[2] == 0) {
+                        cout << "~C";
+                    } else if (myArray[first].binary[2] == myArray[second].binary[2] == 1){
+                        cout << "C";
+                    }
+                } else if (index = 3) {
+                    if (myArray[first].binary[0] == myArray[second].binary[0] == 0) {
+                        cout << "~A";
+                    } else if (myArray[first].binary[0] == myArray[second].binary[0] == 1){
+                        cout << "A";
+                    }
+                    if (myArray[first].binary[1] == myArray[second].binary[1] == 0) {
+                        cout << "~B";
+                    } else if (myArray[first].binary[1] == myArray[second].binary[1] == 1){
+                        cout << "B";
+                    }
+                }
+            }
+
+        }
+    }
+
+}
+
+
+
+/*
+for (int i = 0; i < size; i++){
+    for (int j = 0; j < 3; j++){
+        cout << myArray[i].binary[j] << " ";
+    }
+    cout << endl;
+    }
+
+*/

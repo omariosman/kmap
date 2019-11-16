@@ -1,3 +1,7 @@
+/* Author: Omar Osman */
+/* Time  : 4 hours    */
+/* Date  : 17/11/2019 */
+
 #include <stdio.h>
 #include<string.h>
 #include<iostream>
@@ -31,6 +35,12 @@ int main()
 
     //Crreating array of objects its size equal to the size of minterms
     Combined *myArray = new Combined[size];
+    int *checkArray   = new int[size];
+
+    for (int i = 0; i < size; i++){
+        checkArray[i] = -1;
+    }
+
 
     for (int i = 0; i < size; i++){
         cout << "Enter minterm " << i + 1 << " :";
@@ -39,7 +49,9 @@ int main()
         converter(myArray[i].dec, myArray[i].binary, 3);
 }
 
-int counter, index, first, second, checkArray[10], checkCounter = 0;
+
+
+int counter, index, first, second, checkCounter = 0;
 for (int i = 0; i < 10; i++){
     checkArray[i] = -1;
 }
@@ -68,6 +80,7 @@ for (int i = 0; i < 10; i++){
                             checkArray[checkCounter++] = j;
                             checkArray[checkCounter++] = m;
                             checkArray[checkCounter]   = r;
+                            index = k;
                             if (index == 0){
                                 cout << "A";
                             } else if (index == 1){
@@ -82,19 +95,16 @@ for (int i = 0; i < 10; i++){
             }
         }
     }
-    cout << "Check Array" << endl;
-    for (int i = 0; i < 10; i++){
-        cout << checkArray[i] << " ";
-    }
-    
-bool iflag = true, jflag = true;
-        for (int i = 0; i < size -1 ; i++){
+
+bool iflag, jflag;
+    for (int i = 0; i < size -1 ; i++){
         for (int j = i+1; j < size; j++){
             counter = 0;
             index   = -1;
+            iflag = true, jflag = true;
             for (int k = 0; k < 3; k++){
                 if (myArray[i].binary[k] != myArray[j].binary[k]){
-                    for (int n = 0; n < 10; n++){
+                    for (int n = 0; n < size; n++){
                         if (i == checkArray[n]) {
                             iflag = false;
                         } 
@@ -109,8 +119,7 @@ bool iflag = true, jflag = true;
                         second = j;
                 }
             }
-                
-            }
+        }
             if (counter == 1){
                 if (index == 0) {
                     if (myArray[first].binary[1] == 0 && myArray[second].binary[1] == 0) {
@@ -154,16 +163,3 @@ bool iflag = true, jflag = true;
     }
 
 }
-
-
-
-
-/*
-for (int i = 0; i < size; i++){
-    for (int j = 0; j < 3; j++){
-        cout << myArray[i].binary[j] << " ";
-    }
-    cout << endl;
-    }
-
-*/

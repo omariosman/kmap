@@ -1,8 +1,7 @@
-/* 
-    Author: Omar Osman
-    Time: 4 hours
+/*
+    Author:   Omar Osman
+    Duration: 4 hours
     Date: 16/11/2019
-            9:00 pm
 */
 
 #include <stdio.h>
@@ -55,16 +54,20 @@ void print_kmap(int kmap[], int size)
     kmap[7]  = temp;
 
     for (int i = 0; i < 8; i++){
-        if (i == 4){
-            cout << endl;
-        }
+    
         if (i % 2 == 0){
             cout << kmap[i] << "  ";
         }
         
+    }
+    
+    cout << endl;
+    
+    for (int i = 0; i < 8; i++){
         if ( i % 2 == 1 ){
             cout << kmap[i] << "  ";
         }
+
     }
     cout << endl;
 }

@@ -32,13 +32,24 @@ int main()
     int size, minterm;
     cout << "Enter the size of the minterms: ";
     cin >> size;
-
+    
+    //If the user entered zero size, the output will be zero
+    if (size == 0){
+        cout << 0;
+    }
+    
+    
+    
     //Crreating array of objects its size equal to the size of minterms
     Combined *myArray = new Combined[size];
     int *checkArray   = new int[size];
+    int *myCheckArray   = new int[size];
+    int newArray[10];
 
     for (int i = 0; i < size; i++){
-        checkArray[i] = -1;
+        checkArray[i]   = -1;
+        myCheckArray[i] = -1;
+        newArray[i]     = -1;
     }
 
 
@@ -50,8 +61,21 @@ int main()
 }
 
 
+// If the user enterd all the values as 1 the output will be 1 and exit the program
+bool specialCase = false;
+for (int i = 0; i < 8; i++){
+    if (myArray[i].dec != 1){
+        specialCase = true;
+    }
+    
+}
+    if (!specialCase){
+        cout << 1;
+        exit(1);
+    }
 
-int counter, index, first, second, checkCounter = 0;
+
+int counter, index, first, second, checkCounter = 0, myCounter = 0;
 for (int i = 0; i < 10; i++){
     checkArray[i] = -1;
 }
@@ -66,7 +90,7 @@ for (int i = 0; i < 10; i++){
                             checkArray[checkCounter++] = j;
                             checkArray[checkCounter++] = m;
                             checkArray[checkCounter]   = r;
-                            if (index == 0){
+                             if (index == 0){
                                 cout << "~A";
                             } else if (index == 1){
                                 cout << "~B";
@@ -104,6 +128,7 @@ bool iflag, jflag;
             iflag = true, jflag = true;
             for (int k = 0; k < 3; k++){
                 if (myArray[i].binary[k] != myArray[j].binary[k]){
+                    
                     for (int n = 0; n < size; n++){
                         if (i == checkArray[n]) {
                             iflag = false;
@@ -121,6 +146,8 @@ bool iflag, jflag;
             }
         }
             if (counter == 1){
+                myCheckArray[myCounter++] = i;
+                myCheckArray[myCounter]   = j;
                 if (index == 0) {
                     if (myArray[first].binary[1] == 0 && myArray[second].binary[1] == 0) {
                         cout << "~B";
@@ -161,5 +188,52 @@ bool iflag, jflag;
 
         }
     }
+    
+
+
+bool fourfound, twofound;
+
+int cont = 0;
+
+
+    for (int i = 0; i < size; i++){
+        fourfound = false;
+        twofound = false;
+        for (int j = 0; j < size; j++){
+            if (i == checkArray[j]){
+                fourfound = true;
+            }
+            if (i == myCheckArray[j]){
+                twofound = true;
+            }
+        }
+        if (!twofound && !fourfound){
+            newArray[cont++] = i;
+        }
+    }
+   
+    
+    for (int i = 0; i < size; i++){
+        if (myArray[newArray[i]].binary[0] == 0 && newArray[i] != -1){
+            cout << "~A";
+        } else if (myArray[newArray[i]].binary[0] == 1 && newArray[i] != -1){
+            cout << "A";
+        }
+        if (myArray[newArray[i]].binary[1] == 0 && newArray[i] != -1){
+            cout << "~B";
+        } else if (myArray[newArray[i]].binary[1] == 1 && newArray[i] != -1){
+            cout << "B";
+        }
+        if (myArray[newArray[i]].binary[2] == 0 && newArray[i] != -1){
+            cout << "~C";
+        } else if (myArray[newArray[i]].binary[2] == 1 && newArray[i] != -1){
+            cout << "C";
+        }
+        if (newArray[i] != -1){
+        cout << "+";
+        }
+        
+    }
+    
 
 }

@@ -11,6 +11,21 @@ public:
     int dec;
 };
 
+//Check if th einput is integer or not
+bool isNumber(string s) 
+{ 
+    bool flag = true;
+    for (int i = 0; i < s.length(); i++) 
+        if (isdigit(s[i]) == false) 
+            flag = false;
+    
+    if (flag){
+        return true;
+    } else {
+        return false;
+    }
+            
+} 
 
 //A function used to convert the decimal numbers into binary numbers and store them in the array inside the object
 void converter(int decNum, int binary[], int size){
@@ -56,11 +71,12 @@ int main()
     int size, minterm, kmap[8];
     cout << "Enter the size of the minterms: ";
     cin >> size;
-    if (!isdigit(size)){
-        cout << "You should enter numbers.";
+    if (isNumber(to_string(size))){
+    } else {
+        cout << "You should enter a number.";
         exit(1);
     }
-    
+
     //If the user entered zero size, the output will be zero
     if (size == 0){
         cout << 0;
@@ -86,10 +102,6 @@ int main()
     for (int i = 0; i < size; i++){
         cout << "Enter minterm " << i + 1 << " :";
         cin >> minterm;
-        if (!isdigit(minterm)){
-            cout << "You should enter numbers.";
-            exit(1);
-        }
         kmap[minterm] = 1;
         myArray[i].dec = minterm;
         converter(myArray[i].dec, myArray[i].binary, 3);
@@ -134,7 +146,7 @@ for (int i = 0; i < 10; i++){
                             } else if (index == 2) {
                                 cout << "~C";
                             }
-                            cout << "+";
+                            cout << " + ";
                         } 
                         else if (myArray[i].binary[k] == 1 && myArray[j].binary[k] == 1 && myArray[m].binary[k] == 1 && myArray[r].binary[k] == 1){
                             checkArray[checkCounter++] = i;
@@ -149,7 +161,7 @@ for (int i = 0; i < 10; i++){
                             } else if (index == 2) {
                                 cout << "C";
                             }
-                            cout << "+";
+                            cout << " + ";
                         }
                     }
                 }
@@ -220,7 +232,7 @@ bool iflag, jflag;
                         cout << "B";
                     }
                 }
-                 cout << "+";
+                 cout << " + ";
             }
 
         }
@@ -267,7 +279,7 @@ int cont = 0;
             cout << "C";
         }
         if (newArray[i] != -1){
-        cout << "+";
+        cout << " + ";
         }
         
     }
